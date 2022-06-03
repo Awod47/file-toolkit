@@ -44,7 +44,7 @@
 
             {% if download %}
             <div>
-                <a href="../textfiles/pdf2Text.txt">{{download}}</a>
+                <a href="{{url_for('download')}}" id="download-btn">{{download}}</a>
             </div>
             {% endif %}
         </div>

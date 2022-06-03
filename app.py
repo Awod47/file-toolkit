@@ -1,5 +1,5 @@
 from turtle import down
-from flask import Flask,render_template,request
+from flask import Flask,render_template,request, send_file
 
 import pdfplumber
 import os
@@ -112,6 +112,14 @@ def translateText():
             
     else:
         return render_template('base.html')
+
+@app.route('/download', methods = ['GET','POST'])
+def download():
+    path = 'textfiles/pdf2Text.txt'
+    if path:
+        return send_file(path, as_attachment=True)
+    else:
+        return f'wrong'
 
 
 

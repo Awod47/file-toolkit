@@ -143,3 +143,21 @@ textarea{
     background-color: #7c7c7c4c;
     cursor: pointer;
 }
+
+#download-btn{
+    border-radius: 10px;
+    background-color: black;
+    border: none;
+    color: white;
+    height: 40px;
+    width: 40px;
+    transition: 0.2s ease-in-out; 
+    border: 3px white solid;
+    font-size: 30px;
+    text-decoration: none;
+}
+
+#download-btn:hover{
+    background-color: #2f2f2f;
+    cursor: pointer;
+}
