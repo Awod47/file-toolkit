@@ -1,0 +1,145 @@
+body{
+    background-image: url('R.jfif');
+    font-family: 'Open Sans', sans-serif;
+    background-size: cover;
+    position: relative;
+}
+
+#page{
+    display: flex;
+    flex-flow: column;
+}
+
+#image-input{
+    background-color: #000000d7;
+    color: azure;
+    border-radius: 1.5em;
+    padding: 20px;
+    max-width: 350px;
+    width: calc(100% - 10px);
+    margin: 30px;
+    border: 1px white solid;
+}
+
+#header{
+    display: flex;
+    justify-content: center;
+    margin-top: 0;
+    color:ivory;
+    height: 30px;;
+}
+
+#main-content{
+    display: flex;
+    justify-content: center;
+    align-items: center;
+    height: 100%;
+    flex-flow: column;
+    margin-top: 80px;
+}
+
+
+
+#capture{
+    margin-left: 80px;
+    margin-top: 40px;
+}
+
+#image-input p{
+    margin-left: 110px;
+    margin-top: 40px;
+    height: 20px;
+}
+
+#drop-down{
+    margin-left: 20px;
+    background-color: #7c7c7c2b;
+    border: none;
+    color: white;
+    transition: 0.2s ease-in-out; 
+    border: 0.3px white solid;
+}
+
+option{
+    background-color: black;
+}
+
+#detect-text-btn{
+    margin-left: 130px;
+    margin-top: 40px;
+    border-radius: 50%;
+    background-color: #7c7c7c2b;
+    border: none;
+    color: white;
+    height: 100px;
+    width: 100px;
+    transition: 0.2s ease-in-out; 
+    border: 0.3px white solid;
+}
+
+#detect-text-btn:hover{
+    background-color: #7c7c7c4c;
+    cursor: pointer; 
+}
+
+#output{
+    display: flex;
+    margin-top: 80px;
+    max-width: 100%;
+    justify-content: center;
+    width: 100%;
+}
+
+textarea{
+    padding: 7px;
+    margin: 20px;
+    height: 400px;
+    max-width: 400px;
+    background-color: #000000d7;
+    color: azure;
+    border-radius: 1.5em;
+    border: 2px white solid;
+    font-size: 15px;
+    width: 100%;
+}
+
+#translate-input{
+    display: flex;
+    justify-content: center;
+}
+
+#translate-btn{
+    margin-top: 170px;
+    border-radius: 50%;
+    background-color: #7c7c7c2b;
+    border: none;
+    color: white;
+    height: 80px;
+    width: 80px;
+    transition: 0.2s ease-in-out;
+    border: 0.3px white solid;
+}
+
+#translate-btn:hover{
+    background-color: #7c7c7c4c;
+    cursor: pointer; 
+}
+
+#speech-btn{
+    margin-left: -70px;
+    margin-top: 380px;
+    border-radius: 50%;
+    background-color: #7c7c7c2b;
+    border: none;
+    color: white;
+    height: 40px;
+    width: 40px;
+    transition: 0.2s ease-in-out; 
+    border: 0.3px white solid;
+    font-size: 30px;
+}
+
+#speech-btn:hover{
+    background-color: #7c7c7c4c;
+    cursor: pointer;
+}

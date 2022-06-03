@@ -1,0 +1,197 @@
+JSS ACADEMY OF TECHNICAL EDUCATION, BENGALURU 
+ 
+ 
+ 
+Department of Computer Science and Engineering 
+Unix Programming (18CS56) 
+ 
+ 
+Report On 
+ C/C++ Programming assignment 
+ 
+ 
+Submitted by 
+Ashutosh Wodeyar – 1JS19CS036 
+ 
+ 
+Under the guidance of  
+Mrs. Savita S 
+Assistant Professor, CSE Department 
+ 
+ 
+  
+Zombie Process: 
+A zombie process is a process whose execution is completed but it still 
+has an entry in the process table. Zombie processes usually occur for 
+child processes, as the parent process still needs to read its child’s exit 
+status. Once this is done using the wait system call, the zombie process 
+is eliminated from the process table. This is known as reaping the 
+zombie process. 
+ 
+ 
+ 
+ 
+ 
+Some of the salient points related to zombie processes are as follows − 
+All the memory and resources allocated to a process are 
+ 
+deallocated when the process terminates using the exit() system 
+call. But the process’s entry in the process table is still available. 
+This process is now a zombie process. The exit status of the zombie process zombie process can be read 
+ 
+by the parent process using the wait() system call. After that, the 
+zombie process is removed from the system. Then the process ID 
+and the process table entry of the zombie process can be reused. 
+If the parent process does not use the wait() system call, the 
+ 
+zombie process is left in the process table. This creates a resource 
+leak. 
+If the parent process is not running anymore, then the presence of 
+ 
+a zombie process indicates an operating system bug. This may not 
+be a serious problem if there are a few zombie processes but 
+under heavier loads, this can create issues for the system such as 
+running out of process table entries. 
+The zombie processes can be removed from the system by 
+ 
+sending the SIGCHLD signal to the parent, using the kill command. 
+If the zombie process is still not eliminated from the process table 
+by the parent process, then the parent process is terminated if 
+that is acceptable. 
+ 
+ 
+Daemon Process: 
+What is a daemon? 
+A daemon is a kind of program over UNIX-like OS that executes in the 
+background unobtrusively, instead of upon the direct access of a user. 
+It waits to be triggered by the appearance of a particular condition or 
+event. 
+Typically, UNIX-like systems execute numerous daemons, primarily for 
+accommodating requests for services through other systems on the 
+network, to hardware activity, and for responding to other programs as 
+well. Examples of conditions or actions that could activate daemons into the 
+activity can be a particular date or time, passage of a described time 
+interval, receipt of a web request or email created from a specific 
+communication line, and a file landing in a specific directory. 
+ 
+Some important key points of Daemons are explained below: 
+In 1963, the term daemon was initially applied inside a system 
+o 
+context on the pioneering project MAC with the help of IBM 7094. 
+The first daemon computer was a program that created tape 
+o 
+backups automatically. 
+This term was utilized for computer use. It was as a short form for 
+o 
+Disk and Execution Monitor. 
+Various programs called services the daemons functions on the 
+o 
+Microsoft Windows operating system. However, the word 
+daemon is also sometimes being applied with those systems. 
+ 
+ 
+ 
+ 
+ 
+ 
+ 
+ 
+ 
+ 
+  
+ 
+ 
+ 
+Programs: 
+2.Write a C/C++ program that creates a zombie and then calls system 
+to execute the ps command to verify that the process is zombie. 
+ 
+#include<unistd.h> 
+#include<sys/types.h> 
+#include<iostream.h> 
+int main() 
+{ 
+ pid_t pid; 
+ pid=fork(); 
+ if(pid==0) 
+{ 
+ cout << "child" <<endl; 
+ exit(0); 
+} 
+else 
+{ 
+ char str[100],b[10]; 
+ //system("ps -o stat,pid,ppid,command"); 
+ strcpy(str,"ps -o stat,pid,ppid,command --pid "); 
+ sprintf(b,"%d",pid); 
+ strcat(str,b); 
+ system(str);  sleep(10); 
+ cout << "parent"; 
+} 
+ 
+Output: 
+ 
+ 
+ 
+ 
+ 
+ 
+ 
+18 
+b. Write a C++ program to emulate the Unix ln command 
+ 
+#include<iostream> 
+#inculde<unistd.h> 
+int main(int argc, char* argv[]) 
+{ 
+ using namespace std; 
+ if(argc!=3) 
+ {  cout<<“Usage ./a.out sourcefile destination filen”; 
+ return 0; 
+ } 
+ if(link(argv[1],argv[2])==-1) 
+ { 
+ cout<<“cant link\n”; 
+ return 1; 
+ } 
+ else 
+ { 
+ cout<<“Files have been Linked\n”; 
+ } 
+return 0; 
+} 
+ 
+ 
+Output:  
+ 
+ 
+ 
+ 
+ 
+ 
+ 
+ 
+ 
+ 
+ 
+ 
+ 
+ 
+ 
+ 
+  
+ 
+ 
+THANK YOU 
+ 
+ 
+ 
+ 
+ 
+ 
+ 
+ 
+ 
+ 
+ 
+ 
