@@ -9,3 +9,4 @@ if(text.value != null){
 button.addEventListener("click",function(){
     speechSynthesis.speak(utterance);
 })
+

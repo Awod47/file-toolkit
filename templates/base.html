@@ -5,10 +5,31 @@
     <meta http-equiv="X-UA-Compatible" content="IE=edge">
     <meta name="viewport" content="width=device-width, initial-scale=1.0">
     <link rel="stylesheet" href= "{{ url_for('static',filename='styles/style.css') }} ">
+    <script type="text/javascript" src="http://code.jquery.com/jquery-latest.min.js"></script>
     
     <title>Document</title>
 </head>
 <body>
+    <div id="loader">
+        <h2>Loading....</h2>
+        <span></span>
+        <span></span>
+        <span></span>
+        <span></span>
+        <span></span>
+        <span></span>
+        <span></span>
+    </div>
+    <div id="loading">
+        <h2>Summarizing your text.....this may take a minute or 2</h2>
+        <span></span>
+        <span></span>
+        <span></span>
+        <span></span>
+        <span></span>
+        <span></span>
+        <span></span>
+      </div>
     <div id="page">
         <div id="header">
             <h1>Home</h1>
@@ -17,7 +38,7 @@
         <div id="main-content">
             <form id= 'image-input' action="{{url_for('captureText')}}" method="post" enctype="multipart/form-data">
                 <input type="file" id="capture" accept="image/jpeg,image/gif,image/png,application/pdf,image/x-eps" name="imageFile">
-                <p>or drag image here</p>
+                <p style="margin-left: 0px;">or drag image here</p>
                 <select name="drop-down" id="drop-down">
                     <option value="en">english</option>
                     <option value="es">spanish</option>
@@ -25,6 +46,10 @@
                     <option value="ja">japanese</option>
                     <option value="ar">arabic</option>
                     <option value="ru">russian</option>
+                    <option value="de">german</option>
+                    <option value="hi">hindi</option>
+                    <option value="it">italian</option>
+                    <option value="kn">kannada</option>
                 </select>
                 <button id="detect-text-btn">capture text</button>
             </form>
@@ -36,19 +61,58 @@
                     <textarea name="input-text" id="captured-text" cols="30" rows="10">{{output}}</textarea>
                     <button name="translate-btn" id="translate-btn" value="translate">Translate</button>
                     <textarea name="output-text" id="translated-text" cols="30" rows="10">{{translation}}</textarea>
-                    
+                    <select name="drop-down-tr" id="drop-down-tr">
+                        <option value="en">english</option>
+                        <option value="ja">japanese</option>
+                        <option value="hi">hindi</option>
+                        <option value="de">german</option>
+                        <option value="es">spanish</option>
+                        <option value="ar">arabic</option>
+                        <option value="kn">kannada</option>
+                    </select>
                 </form>
                 <button name="speech-btn" id="speech-btn" value="speech"><svg stroke="currentColor" fill="currentColor" stroke-width="0" viewBox="0 0 512 512" height="1em" width="1em" xmlns="http://www.w3.org/2000/svg"><path d="M275.5 96l-96 96h-96v128h96l96 96V96zm51.46 27.668l-4.66 17.387c52.066 13.95 88.2 61.04 88.2 114.945 0 53.904-36.134 100.994-88.2 114.945l4.66 17.387C386.81 372.295 428.5 317.962 428.5 256c0-61.963-41.69-116.295-101.54-132.332zm-12.425 46.365l-4.658 17.387C340.96 195.748 362.5 223.822 362.5 256s-21.54 60.252-52.623 68.58l4.658 17.387C353.402 331.552 380.5 296.237 380.5 256c0-40.238-27.098-75.552-65.965-85.967zm-12.424 46.363l-4.657 17.387C307.55 236.49 314.5 245.547 314.5 256s-6.95 19.51-17.047 22.217l4.658 17.387c17.884-4.792 30.39-21.09 30.39-39.604 0-18.513-12.506-34.812-30.39-39.604z"></path></svg></button>
+        
+                
             </div>
             {% endif %}
 
-            {% if download %}
+            {% if download or summary%}
             <div>
                 <a href="{{url_for('download')}}" id="download-btn">{{download}}</a>
+                <form action="{{url_for('summary')}}">
+                    <button name = 'summary-btn' id="summary-btn" value="summary-gen">summary</button>
+                </form>
+                {% if summary%}
+                <a href="{{url_for('downloadSummary')}}" id="download-summary-btn">{{summary}}</a>
+                {% endif %}
             </div>
             {% endif %}
         </div>
     </div>
+    <script type="text/javascript" src="http://code.jquery.com/jquery-latest.min.js"></script>
     <script src = "{{ url_for('static', filename='scripts/index.js') }}"></script>
+
+    <script>
+        var loading = document.getElementById('loading')
+        window.addEventListener('load',function(){
+            loading.style.display = 'none'
+        })
+
+        var loader = document.getElementById('loader')
+        window.addEventListener('load',function(){
+            loader.style.display = 'none'
+        })
+
+        var detect_btn = document.getElementById('detect-text-btn')
+        detect_btn.addEventListener("click", function(){
+            loader.style.display = 'flex'
+        })
+
+        var summary_btn = document.getElementById('summary-btn')
+        summary_btn.addEventListener("click",function(){
+            loading.style.display = 'flex'
+        })
+    </script>
 </body>
 </html>

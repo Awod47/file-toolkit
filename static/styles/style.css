@@ -1,9 +1,11 @@
 body{
     background-image: url('R.jfif');
     font-family: 'Open Sans', sans-serif;
-    background-size: cover;
     position: relative;
+    background-size: cover;
+    text-align: center;
 }
+
 
 #page{
     display: flex;
@@ -49,6 +51,7 @@ body{
     margin-left: 110px;
     margin-top: 40px;
     height: 20px;
+    text-align: center;
 }
 
 #drop-down{
@@ -84,6 +87,7 @@ option{
 
 #output{
     display: flex;
+    margin-left: -20px;
     margin-top: 80px;
     max-width: 100%;
     justify-content: center;
@@ -126,8 +130,8 @@ textarea{
 }
 
 #speech-btn{
-    margin-left: -70px;
-    margin-top: 380px;
+    margin-left: 30px;
+    margin-top: 385px;
     border-radius: 50%;
     background-color: #7c7c7c2b;
     border: none;
@@ -155,9 +159,204 @@ textarea{
     border: 3px white solid;
     font-size: 30px;
     text-decoration: none;
+    font-size: 19px;
+    padding: 5px;
 }
 
 #download-btn:hover{
     background-color: #2f2f2f;
     cursor: pointer;
 }
+
+#drop-down-tr{
+    margin-top: -20px;
+    margin-left: -180px;
+    background-color: black;
+    border: none;
+    color: white;
+    transition: 0.2s ease-in-out; 
+    border: 0.3px white solid;
+    height: 30px;
+    width: 100px;
+}
+
+#summary-btn{
+    margin-top: 30px;
+    border-radius: 30%;
+    background-color: #7c7c7c2b;
+    border: none;
+    color: white;
+    height: 50px;
+    width: 90px;
+    transition: 0.2s ease-in-out; 
+    border: 0.3px white solid;
+}
+
+#summary-btn:hover{
+    background-color: #7c7c7c4c;
+    cursor: pointer;
+}
+
+#download-summary-btn{
+    margin-top: 100px;
+    border-radius: 10px;
+    background-color: black;
+    border: none;
+    color: white;
+    height: 40px;
+    width: 40px;
+    transition: 0.2s ease-in-out; 
+    border: 3px white solid;
+    font-size: 30px;
+    text-decoration: none;
+    font-size: 19px;
+    padding: 5px;
+}
+
+#download-summary-btn:hover{
+    background-color: #2f2f2f;
+    cursor: pointer;
+}
+
+h2 {
+    color: #ccc;
+    margin: 0;
+    font: .8em verdana;
+    text-transform: uppercase;
+    letter-spacing: .1em;
+  }
+  
+  /*
+   * Loading Dots
+   * Can we use pseudo elements here instead :after?
+   */
+#loader{
+    left: 0;
+    top: 0;
+    display: flex;
+    justify-content: center;
+    align-items: center;
+    width: 100%;
+    height: 100vh;
+    background-color: black;
+    position: fixed;
+}
+#loader span {
+    display: inline-block;
+    vertical-align: middle;
+    width: .6em;
+    height: .6em;
+    margin: .19em;
+    background: #007DB6;
+    border-radius: .6em;
+    animation: loading 1s infinite alternate;
+  }
+  
+  /*
+   * Dots Colors
+   * Smarter targeting vs nth-of-type?
+   */
+   
+#loader span:nth-of-type(2) {
+    background: #008FB2;
+    animation-delay: 0.2s;
+}
+#loader span:nth-of-type(3) {
+    background: #009B9E;
+    animation-delay: 0.4s;
+}
+#loader span:nth-of-type(4) {
+    background: #00A77D;
+    animation-delay: 0.6s;
+}
+#loader span:nth-of-type(5) {
+    background: #00B247;
+    animation-delay: 0.8s;
+}
+#loader span:nth-of-type(6) {
+    background: #5AB027;
+    animation-delay: 1.0s;
+}
+#loader span:nth-of-type(7) {
+    background: #A0B61E;
+    animation-delay: 1.2s;
+}
+  
+  /*
+   * Animation keyframes
+   * Use transition opacity instead of keyframes?
+   */
+@keyframes loading {
+    0% {
+      opacity: 0;
+    }
+    100% {
+      opacity: 1;
+    }
+}
+
+
+#loading{
+    left: 0;
+    top: 0;
+    display: flex;
+    justify-content: center;
+    align-items: center;
+    width: 100%;
+    height: 100vh;
+    background-color: black;
+    position: fixed;
+}
+
+#loading span {
+    display: inline-block;
+    vertical-align: middle;
+    width: .6em;
+    height: .6em;
+    margin: .19em;
+    background: #007DB6;
+    border-radius: .6em;
+    animation: loading 1s infinite alternate;
+  }
+  
+  /*
+   * Dots Colors
+   * Smarter targeting vs nth-of-type?
+   */
+  #loading span:nth-of-type(2) {
+    background: #008FB2;
+    animation-delay: 0.2s;
+  }
+  #loading span:nth-of-type(3) {
+    background: #009B9E;
+    animation-delay: 0.4s;
+  }
+  #loading span:nth-of-type(4) {
+    background: #00A77D;
+    animation-delay: 0.6s;
+  }
+  #loading span:nth-of-type(5) {
+    background: #00B247;
+    animation-delay: 0.8s;
+  }
+  #loading span:nth-of-type(6) {
+    background: #5AB027;
+    animation-delay: 1.0s;
+  }
+  #loading span:nth-of-type(7) {
+    background: #A0B61E;
+    animation-delay: 1.2s;
+  }
+  
+  /*
+   * Animation keyframes
+   * Use transition opacity instead of keyframes?
+   */
+  @keyframes loading {
+    0% {
+      opacity: 0;
+    }
+    100% {
+      opacity: 1;
+    }
+  }

@@ -1,11 +1,13 @@
-from turtle import down
 from flask import Flask,render_template,request, send_file
+from transformers import pipeline
 
+import requests
 import pdfplumber
 import os
 import easyocr
 import cv2
 import numpy as np
+from transformers import PegasusForConditionalGeneration, PegasusTokenizer
 
 from googletrans import Translator
 
@@ -17,7 +19,6 @@ app = Flask(__name__)
 @app.route('/')
 def home():
     return render_template('base.html')
-
 
 
 @app.route('/ocr', methods = ['POST','GET'])
@@ -73,13 +74,13 @@ def captureText():
             else:
                 return render_template('base.html')
 
-            text = ''
+            pdf_text = ''
             input_file.save(filePath)
             with pdfplumber.open(filePath) as pdf:
                 for page in pdf.pages:
-                    text = text + page.extract_text()
+                    pdf_text = pdf_text + page.extract_text()
             textFile = open('./textfiles/'+ 'pdf2Text.txt' , 'w' ,encoding='utf-8')
-            textFile.write(text)
+            textFile.write(pdf_text)
             textFile.close()
             os.remove(filePath)
             onSuccess = 'download'
@@ -100,8 +101,9 @@ def translateText():
     if request.method == 'POST':
         translation = ''
         text = request.form['input-text']
+        lang_tr = request.form['drop-down-tr']
         if text:
-            translation = translator.translate(text)
+            translation = translator.translate(text, dest=lang_tr)
 
             print(translation)
             return render_template('base.html', translation = translation.text)
@@ -113,7 +115,8 @@ def translateText():
     else:
         return render_template('base.html')
 
-@app.route('/download', methods = ['GET','POST'])
+
+@app.route('/ocr/download', methods = ['GET','POST'])
 def download():
     path = 'textfiles/pdf2Text.txt'
     if path:
@@ -121,6 +124,46 @@ def download():
     else:
         return f'wrong'
 
+@app.route('/ocr/summary/downloadS', methods=['GET','POST'])
+def downloadSummary():
+    path = 'textfiles/textSummary.txt'
+    if path:
+        return send_file(path, as_attachment=True)
+    else:
+        return f'error'
+
+
+@app.route('/ocr/summary', methods = ['GET','POST'])
+def summary(): 
+    summarizer = pipeline("summarization", model="facebook/bart-large-cnn")
+    with open('textfiles/pdf2Text.txt','r',encoding='utf-8') as f:
+        text = f.read()
+        print(text)
+        str = text.split()
+        words = 0
+        for i in str:
+            words = words + 1
+
+
+    # tokenizer = PegasusTokenizer.from_pretrained("google/pegasus-large")
+    # model = PegasusForConditionalGeneration.from_pretrained("google/pegasus-large")
+    # with open('textfiles/pdf2Text.txt','r',encoding='utf-8') as f:
+    #     text = f.read()
+    # tokens = tokenizer(text, truncation=True, padding="longest", return_tensors="pt")
+    # summary = model.generate(**tokens)
+    # main_text = tokenizer.decode(summary[0])
+    # with open('textfiles/textSummary.txt','w',encoding='utf-8') as file:
+    #     file.write(main_text)
+
+
+    main_text = (summarizer(text, max_length=round(words*60/100), min_length=round(words*20/100), do_sample=False))
+    for i in main_text:
+        text_dict = i
+    text = ''
+    with open('textfiles/textSummary.txt','w',encoding='utf-8') as file:
+        file.write(text_dict['summary_text'])
+    onSuccess = 'download summary'
+    return render_template('base.html', summary = onSuccess)
 
 
 if __name__ == '__main__':
